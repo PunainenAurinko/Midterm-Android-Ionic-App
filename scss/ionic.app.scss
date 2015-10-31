@@ -1,0 +1,81 @@
+/*
+To customize the look and feel of Ionic, you can override the variables
+in ionic's _variables.scss file.
+
+For example, you might change some of the default colors:
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+
+// Include all of Ionic
+@import "www/lib/ionic/scss/ionic";
+
+.item-content:hover {
+    cursor: pointer;
+    background-color: $energized;
+    color: $stable; 
+}
+
+/********************************************
+                MAIN STYLES
+********************************************/
+
+input {
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.8rem;
+    border: 0.15rem solid $calm;
+    border-radius: 4px;
+}
+
+input:hover,
+input:focus {
+    transition-duration: 0.5s;
+//    background: $stable;
+    color: $positive;   
+//    -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.35);
+//       -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.35);
+//            box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.35);
+}
+
+//input[type="text"] {
+//    background: $dark;
+//    color: $light;
+//}
+
+.button:hover {
+    transition-duration: 0.3s;
+    background: $energized;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    margin-left: 0;
+    margin-right: 3rem;
+    width: 30px;
+    height: 30px;
+    background: white;
+    border-radius: 5px;
+}
+
+input[type="checkbox"]:checked {
+    /***Icon pack by Icons8 - https://icons8.com***/
+    background: url(https://maxcdn.icons8.com/Android_L/PNG/24/Very_Basic/checkmark-24.png);
+    background-size: 100%;
+}
+
+.done {
+    text-decoration: line-through;
+    color: $calm;
+}

@@ -1,0 +1,18 @@
+<ion-view view-title="List Two">
+    <ion-content>
+        <ion-list>
+            <form ng-submit="addItem()" class="row item-button-right">
+                <input class="col-50" ng-model="data.newItem" type="text" placeholder="Add a task here..." required>
+                <input type="submit" value="Add task" class="button button-positive">
+            </form>
+            <ion-item ng-repeat="item in items track by $id($index)" class="item item-button-right positive item-text-wrap">
+                <input ng-model="item.done" type="checkbox">
+                <span ng-class="{'done':item.done}">{{ item.title }}</span>
+                <input ng-click="deleteItem($index)" class="button button-assertive" type="submit" value="&#88;" class="icon ion-close">
+            </ion-item>
+            <ion-item class=text-center>
+                <input ng-click="clearCompleted()" type="submit" value="Clear completed tasks" class="button button-royal">
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
