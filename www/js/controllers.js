@@ -17,7 +17,7 @@ angular.module('starter.controllers', [])
 //
 // *****************************************
 
-.controller('ListOneCtrl', function ($scope, LocalStorageService, ListOneService, $cordovaVibration, $cordovaLocalNotification) {
+.controller('ListOneCtrl', function ($scope, LocalStorageService, ListOneService, $cordovaVibration, NotificationService) {
 
     // LIST ONE ITEMS
 
@@ -68,6 +68,11 @@ angular.module('starter.controllers', [])
             }, false);
 
         }
+
+        // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
+
+        NotificationService.notifyIfCompleted();
+
     }
 
     // DELETE AN ITEM FROM THE LIST
@@ -78,24 +83,11 @@ angular.module('starter.controllers', [])
         document.addEventListener('deviceready', function () {
             $cordovaVibration.vibrate(200);
         }, false);
-    }
 
-    // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
+        // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
 
-    if (document.querySelectorAll('span[class="ng-binding done"]')) {
-        document.addEventListener('deviceready', function () {
-            $cordovaLocalNotification.schedule({
-                id: 1,
-                title: 'Congratulations!',
-                text: "You have completed all your items!",
-                data: {
-                    customProperty: 'custom value'
-                },
-                at: new Date().getTime()
-            }).then(function (result) {
-                console.log('Notification triggered');
-            });
-        })
+        NotificationService.notifyIfCompleted();
+
     }
 })
 
@@ -105,7 +97,7 @@ angular.module('starter.controllers', [])
 //
 // *****************************************
 
-.controller('ListTwoCtrl', function ($scope, LocalStorageService, ListTwoService, $cordovaVibration, $cordovaLocalNotification) {
+.controller('ListTwoCtrl', function ($scope, LocalStorageService, ListTwoService, $cordovaVibration, NotificationService) {
 
     // LIST TWO ITEMS
 
@@ -157,6 +149,10 @@ angular.module('starter.controllers', [])
 
         }
 
+        // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
+
+        NotificationService.notifyIfCompleted();
+
     }
 
     // DELETE AN ITEM FROM THE LIST
@@ -167,6 +163,11 @@ angular.module('starter.controllers', [])
         document.addEventListener('deviceready', function () {
             $cordovaVibration.vibrate(200);
         }, false);
+
+        // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
+
+        NotificationService.notifyIfCompleted();
+
     }
 })
 
@@ -176,7 +177,7 @@ angular.module('starter.controllers', [])
 //
 // *****************************************
 
-.controller('ListThreeCtrl', function ($scope, LocalStorageService, ListThreeService, $cordovaVibration, $cordovaLocalNotification) {
+.controller('ListThreeCtrl', function ($scope, LocalStorageService, ListThreeService, $cordovaVibration, NotificationService) {
 
     // LIST THREE ITEMS
 
@@ -228,6 +229,10 @@ angular.module('starter.controllers', [])
 
         }
 
+        // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
+
+        NotificationService.notifyIfCompleted();
+
     }
 
     // DELETE AN ITEM FROM THE LIST
@@ -238,5 +243,10 @@ angular.module('starter.controllers', [])
         document.addEventListener('deviceready', function () {
             $cordovaVibration.vibrate(200);
         }, false);
+
+        // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
+
+        NotificationService.notifyIfCompleted();
+
     }
 });

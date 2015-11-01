@@ -2,7 +2,7 @@
     <ion-content>
         <ion-list>
             <form ng-submit="addItem()" class="row item-button-right">
-                <input class="col-50" ng-model="data.newItem" type="text" placeholder="Add a task here..." required>
+                <input class="col-50" ng-model="data.newItem" type="text" placeholder="Add an item here..." required>
                 <input type="submit" value="Add task" class="button button-royal">
             </form>
             <ion-item ng-repeat="item in items track by $id($index)" class="item item-button-right royal item-text-wrap">
@@ -11,7 +11,7 @@
                 <input ng-click="deleteItem($index)" class="button button-assertive" type="submit" value="&#88;" class="icon ion-close">
             </ion-item>
             <ion-item class=text-center>
-                <input ng-click="clearCompleted()" type="submit" value="Clear completed tasks" class="button button-positive">
+                <input ng-click="clearCompleted()" type="submit" value="Clear completed" class="button button-positive">
             </ion-item>
         </ion-list>
     </ion-content>

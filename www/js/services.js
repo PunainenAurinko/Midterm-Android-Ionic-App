@@ -16,6 +16,8 @@ angular.module('starter.services', [])
 
 })
 
+// DEFAULT LIST ONE SERVICE
+
 .service('ListOneService', function () {
 
     this.list = [
@@ -36,11 +38,9 @@ angular.module('starter.services', [])
     this.getList = function () {
         return this.list;
     };
-
-    this.saveList = function (list) {
-        this.list = list;
-    };
 })
+
+// DEFAULT LIST TWO SERVICE
 
 .service('ListTwoService', function () {
 
@@ -62,11 +62,9 @@ angular.module('starter.services', [])
     this.getList = function () {
         return this.list;
     };
-
-    this.saveList = function (list) {
-        this.list = list;
-    };
 })
+
+// DEFAULT LIST THREE SERVICE
 
 .service('ListThreeService', function () {
 
@@ -88,29 +86,31 @@ angular.module('starter.services', [])
     this.getList = function () {
         return this.list;
     };
+})
 
-    this.saveList = function (list) {
-        this.list = list;
-    };
+// SERVICE TO TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
+
+.factory('NotificationService', function (LocalStorageService, $cordovaLocalNotification) {
+
+    return {
+
+        notifyIfCompleted: function () {
+
+            if (LocalStorageService.getStorage('listOne') == 0) {
+                document.addEventListener('deviceready', function () {
+                    $cordovaLocalNotification.schedule({
+                        id: 1,
+                        title: 'Congratulations!',
+                        text: "You have completed all of your items!",
+                        data: {
+                            customProperty: 'custom value'
+                        },
+                        at: new Date().getTime()
+                    }).then(function (result) {
+                        console.log('Notification triggered');
+                    });
+                })
+            }
+        }
+    }
 });
-
-//.factory('ClearItemService', function (LocalStorageService) {
-//
-//    return {
-//
-//        clearItem: function () {
-//            $scope.items = $scope.items.filter(function (listItem) {
-//                return !listItem.done;
-//            })
-//
-//            LocalStorageService.setStorage('listOne', $scope.items);
-//
-//            if (document.querySelector('span[class="ng-binding done"]')) {
-//
-//                document.addEventListener("deviceready", function () {
-//                    $cordovaVibration.vibrate(200);
-//                }, false);
-//            }
-//        }
-//    }
-//});
