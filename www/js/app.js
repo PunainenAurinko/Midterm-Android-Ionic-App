@@ -46,7 +46,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         views: {
             'menuContent': {
                 templateUrl: 'templates/list-one.html',
-                controller: 'ListCtrl'
+                controller: 'ListCtrl',
+                controllerAs: 'list',
+                reload: true
             }
         }
     })
@@ -56,7 +58,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             views: {
                 'menuContent': {
                     templateUrl: 'templates/list-two.html',
-                    controller: 'ListCtrl'
+                    controller: 'ListCtrl',
+                    controllerAs: 'list',
+                    reload: true
                 }
             }
         })
@@ -65,7 +69,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             views: {
                 'menuContent': {
                     templateUrl: 'templates/list-three.html',
-                    controller: 'ListCtrl'
+                    controller: 'ListCtrl',
+                    controllerAs: 'list',
+                    reload: true
                 }
             }
         })

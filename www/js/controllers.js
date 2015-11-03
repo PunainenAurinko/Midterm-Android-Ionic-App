@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function ($scope, $window, $state, $ionicModal, $timeout) {
+.controller('AppCtrl', function ($scope, $window, $state, $location, $ionicModal, $timeout) {
 
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
@@ -12,9 +12,8 @@ angular.module('starter.controllers', [])
     $scope.reloadState = function () {
 
         $window.location.reload();
-
     }
-    
+
 })
 
 // *****************************************
@@ -23,16 +22,23 @@ angular.module('starter.controllers', [])
 //
 // *****************************************
 
-.controller('ListCtrl', function ($scope, ListService, VibrationService, NotificationService) {
+.controller('ListCtrl', function ($scope, $state, $location, ListService, VibrationService, NotificationService) {
 
     // CLEAR LOCAL STORAGE
 
-//        localStorage.clear(); // used for testing
+    //    localStorage.clear(); // used for testing
+
+    // RELOAD THE MODEL
+
+    $state.reload();
+
+    console.log($state.params.id);
+    console.log($location.$$path);
 
     // GET DEFAULT LIST ITEMS
 
     $scope.items = ListService.getList();
-    
+
     // ADD NEW ITEM TO THE LIST
 
     $scope.addItem = function () {
@@ -82,6 +88,6 @@ angular.module('starter.controllers', [])
 
 .controller('SettingsCtrl', function ($scope) {
 
-//    $scope.checked = false;
+    //    $scope.checked = false;
 
 });
