@@ -17,78 +17,121 @@ angular.module('starter.controllers', [])
 //
 // *****************************************
 
-.controller('ListOneCtrl', function ($scope, LocalStorageService, ListOneService, $cordovaVibration, NotificationService) {
+.controller('ListOneCtrl', function ($scope, ListOneService, VibrationService, NotificationService) {
 
     // LIST ONE ITEMS
 
     //        localStorage.clear();
 
-    if (LocalStorageService.getStorage('listOne') == $scope.items || LocalStorageService.getStorage('listOne') == 0) {
+    //    if (LocalStorageService.getStorage('listOne') == $scope.items || LocalStorageService.getStorage('listOne') == 0) {
 
-        $scope.items = ListOneService.getList();
+    $scope.items = ListOneService.getList();
 
-    } else {
+    //    } else {
+    //
+    //        $scope.items = LocalStorageService.getStorage('listOne', $scope.items);
+    //
+    //    }
 
-        $scope.items = LocalStorageService.getStorage('listOne', $scope.items);
-
-    }
-
-    LocalStorageService.setStorage('listOne', $scope.items);
+    //    LocalStorageService.setStorage('listOne', $scope.items);
 
     // ADD ITEMS TO THE LIST
 
-    $scope.data = {};
+    //    $scope.data = {};
+    //
+    //    $scope.addItem = function () {
+    //
+    //        $scope.items.push({
+    //            'title': $scope.data.newItem,
+    //            'done': false
+    //        });
+    //
+    //        $scope.data.newItem = '';
 
     $scope.addItem = function () {
 
-        $scope.items.push({
-            'title': $scope.data.newItem,
-            'done': false
-        });
+        $scope.items = ListOneService.addToList(this.item);
 
-        $scope.data.newItem = '';
-
-        LocalStorageService.setStorage('listOne', $scope.items);
-
+        this.item = '';
     }
+
+    //        .then(function () {
+    //            LocalStorageService.setStorage('listOne', $scope.items);
+    //        })
+
+
+    //    }
 
     // CLEAR COMPLETED ITEMS
 
     $scope.clearCompleted = function () {
-        $scope.items = $scope.items.filter(function (listItem) {
-            return !listItem.done;
-        })
 
-        LocalStorageService.setStorage('listOne', $scope.items);
+        $scope.items = ListOneService.removeFromList();
 
-        if (document.querySelector('span[class="ng-binding done"]')) {
+        // VIBRATE THE DEVICE WHEN CLEARING A COMPLETED ITEM
+        
+        if (document.querySelector('span[class="ng-binding done"]')) { // prevent vibration if pressing a button when there is nothing to complete
 
-            document.addEventListener('deviceready', function () {
-                $cordovaVibration.vibrate(200);
-            }, false);
+            VibrationService.vibrate();
 
         }
 
         // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
 
-        NotificationService.notifyIfCompleted();
+        NotificationService.notifyOnceDone();
 
     }
+
+    //    $scope.clearCompleted = function () {
+    //        $scope.items = $scope.items.filter(function (listItem) {
+    //            return !listItem.done;
+    //        })
+    //
+    //        LocalStorageService.setStorage('listOne', $scope.items);
+    //
+    //        if (document.querySelector('span[class="ng-binding done"]')) {
+    //
+    //            document.addEventListener('deviceready', function () {
+    //                $cordovaVibration.vibrate(200);
+    //            }, false);
+    //
+    //        }
+    //
+    //        // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
+    //
+    //        NotificationService.notifyIfCompleted();
+    //
+    //    }
 
     // DELETE AN ITEM FROM THE LIST
 
     $scope.deleteItem = function (index) {
-        $scope.items.splice(index, 1);
-        LocalStorageService.setStorage('listOne', $scope.items);
-        document.addEventListener('deviceready', function () {
-            $cordovaVibration.vibrate(200);
-        }, false);
+
+        $scope.items = ListOneService.deleteFromList(index);
+
+        // VIBRATE THE DEVICE WHEN DELETING AN ITEM
+
+        VibrationService.vibrate();
 
         // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
 
-        NotificationService.notifyIfCompleted();
+        NotificationService.notifyOnceDone();
 
     }
+
+
+    //    $scope.deleteItem = function (index) {
+    //        $scope.items.splice(index, 1);
+    //        LocalStorageService.setStorage('listOne', $scope.items);
+    //        document.addEventListener('deviceready', function () {
+    //            $cordovaVibration.vibrate(200);
+    //        }, false);
+    //
+    //        // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
+    //
+    //        NotificationService.notifyIfCompleted();
+    //
+    //    }
 })
 
 // *****************************************
@@ -151,7 +194,7 @@ angular.module('starter.controllers', [])
 
         // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
 
-        NotificationService.notifyIfCompleted();
+        NotificationService.notifyOnceDone();
 
     }
 
@@ -166,7 +209,7 @@ angular.module('starter.controllers', [])
 
         // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
 
-        NotificationService.notifyIfCompleted();
+        NotificationService.notifyOnceDone();
 
     }
 })
@@ -231,7 +274,7 @@ angular.module('starter.controllers', [])
 
         // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
 
-        NotificationService.notifyIfCompleted();
+        NotificationService.notifyOnceDone();
 
     }
 
@@ -246,7 +289,7 @@ angular.module('starter.controllers', [])
 
         // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
 
-        NotificationService.notifyIfCompleted();
+        NotificationService.notifyOnceDone();
 
     }
 });
