@@ -19,34 +19,80 @@ angular.module('starter.services', [])
 // LIST ONE SERVICE
 
 .service('ListOneService', function (LocalStorageService, $stateParams) {
+    
+    this.params = $stateParams.id;
 
-    if (LocalStorageService.getStorage('listOne') == this.list || LocalStorageService.getStorage('listOne') == 0) {
+    console.log(this.params);
 
-        this.list = [
-            {
-                'title': 'Learn some stuff',
-                'done': false
-        },
-            {
-                'title': 'Code some stuff',
-                'done': false
-        },
-            {
-                'title': 'Code some more',
-                'done': false
-        }
+    if (LocalStorageService.getStorage($stateParams.id) == this.list || LocalStorageService.getStorage($stateParams.id) == 0) {
+        
+        console.log('From fresh: ' + this.params);
+
+        if (this.params == ':list-one') {
+
+            this.list = [
+                {
+                    'title': 'Learn some stuff',
+                    'done': false
+            },
+                {
+                    'title': 'Code some stuff',
+                    'done': false
+            },
+                {
+                    'title': 'Code some more',
+                    'done': false
+            }
+                ];
+        } else if (this.params == ':list-two') {
+
+            this.list = [
+                {
+                    'title': 'Forget some stuff',
+                    'done': false
+                    },
+                {
+                    'title': 'Undo some stuff',
+                    'done': false
+                    },
+                {
+                    'title': 'Forget some more',
+                    'done': false
+                    }
+            ];
+        } else if (this.params == ':list-three') {
+
+            this.list = [
+                {
+                    'title': 'Repeat some stuff',
+                    'done': false
+                    },
+                {
+                    'title': 'Recode some stuff',
+                    'done': false
+                    },
+                {
+                    'title': 'Repeat some more',
+                    'done': false
+                    }
             ];
 
-        LocalStorageService.setStorage('listOne', this.list);
+        }
+
+        LocalStorageService.setStorage($stateParams.id, this.list);
 
     } else {
 
-        this.list = LocalStorageService.getStorage('listOne', this.list);
+        console.log('From storage: ' + this.params);
+        
+        this.list = LocalStorageService.getStorage($stateParams.id, this.list);
 
     }
 
     this.getList = function () {
+        
         return this.list;
+        
     };
 
     this.addToList = function (item) {
@@ -56,7 +102,7 @@ angular.module('starter.services', [])
             'done': false
         });
 
-        LocalStorageService.setStorage('listOne', this.list);
+        LocalStorageService.setStorage($stateParams.id, this.list);
 
         return this.list;
 
@@ -70,7 +116,7 @@ angular.module('starter.services', [])
 
         })
 
-        LocalStorageService.setStorage('listOne', this.list);
+        LocalStorageService.setStorage($stateParams.id, this.list);
 
         return this.list;
 
@@ -80,24 +126,11 @@ angular.module('starter.services', [])
 
         this.list.splice(index, 1);
 
-        LocalStorageService.setStorage('listOne', this.list);
+        LocalStorageService.setStorage($stateParams.id, this.list);
 
         return this.list;
 
     }
-
-    //    $scope.deleteItem = function (index) {
-    //        $scope.items.splice(index, 1);
-    //        LocalStorageService.setStorage('listOne', $scope.items);
-    //        document.addEventListener('deviceready', function () {
-    //            $cordovaVibration.vibrate(200);
-    //        }, false);
-    //
-    //        // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
-    //
-    //        NotificationService.notifyIfCompleted();
-    //
-    //    }
 
 })
 
@@ -185,7 +218,7 @@ angular.module('starter.services', [])
 
                 document.addEventListener('deviceready', function () {
 
-                    $cordovaLocalNotification.schedule( {
+                    $cordovaLocalNotification.schedule({
 
                         id: 1,
                         title: 'Congratulations!',

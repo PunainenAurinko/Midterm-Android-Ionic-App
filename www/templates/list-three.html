@@ -2,7 +2,7 @@
     <ion-content>
         <ion-list>
             <form ng-submit="addItem()" class="row item-button-right">
-                <input class="col-50" ng-model="data.newItem" type="text" placeholder="Add an item here..." required>
+                <input class="col-50" ng-model="this.item" type="text" placeholder="Add an item here..." required>
                 <input type="submit" value="Add task" class="button button-royal">
             </form>
             <ion-item ng-repeat="item in items track by $id($index)" class="item item-button-right royal item-text-wrap">

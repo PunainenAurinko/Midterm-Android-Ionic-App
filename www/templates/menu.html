@@ -18,14 +18,17 @@
         </ion-header-bar>
         <ion-content>
             <ion-list>
-                <ion-item menu-close href="#/app/list-one" class="balanced">
+                <ion-item ng-click="reloadState()" menu-close href="#/app/list-one:list-one" class="balanced">
                     List One
                 </ion-item>
-                <ion-item menu-close href="#/app/list-two" class="positive">
+                <ion-item menu-close ng-click="reloadState()" href="#/app/list-two:list-two" class="positive">
                     List Two
                 </ion-item>
-                <ion-item menu-close href="#/app/list-three" class="royal">
+                <ion-item menu-close ng-click="reloadState()" href="#/app/list-three:list-three" class="royal">
                     List Three
+                </ion-item>
+                <ion-item menu-close href="#/app/list-three:list-three" class="assertive">
+                    Settings
                 </ion-item>
             </ion-list>
         </ion-content>
