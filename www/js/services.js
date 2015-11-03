@@ -142,15 +142,11 @@ angular.module('starter.services', [])
 
         vibrate: function () {
 
-            //            if (document.querySelector('span[class="ng-binding done"]')) {
-
             document.addEventListener('deviceready', function () {
 
                 $cordovaVibration.vibrate(200);
 
             }, false);
-
-            //            }
 
         }
 

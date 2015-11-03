@@ -27,7 +27,7 @@ angular.module('starter.controllers', [])
 
     // CLEAR LOCAL STORAGE
 
-    //    localStorage.clear(); // used for testing
+//        localStorage.clear(); // used for testing
 
     // GET DEFAULT LIST ITEMS
 
@@ -82,6 +82,6 @@ angular.module('starter.controllers', [])
 
 .controller('SettingsCtrl', function ($scope) {
 
-    $scope.checked = false;
+//    $scope.checked = false;
 
 });

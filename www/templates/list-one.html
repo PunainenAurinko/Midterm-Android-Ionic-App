@@ -5,14 +5,20 @@
                 <input class="col-50" ng-model="this.item" type="text" placeholder="Add an item here..." required>
                 <input type="submit" value="Add item" class="button button-balanced">
             </form>
+<!--            <ion-checkbox ng-repeat="item in items track by $id($index)" class="item item-button-right balanced item-text-wrap" ng-model="item.done"><span ng-class="{'done':item.done}">{{ item.title }}</span>-->
+                
             <ion-item ng-repeat="item in items track by $id($index)" class="item item-button-right balanced item-text-wrap">
                 <input ng-model="item.done" type="checkbox">
                 <span ng-class="{'done':item.done}">{{ item.title }}</span>
-                <input ng-click="deleteItem($index)" class="button button-assertive" type="submit" value="&#88;">
-            </ion-item>
-            <ion-item class=text-center>
-                <input ng-click="clearCompleted()" type="submit" value="Clear completed" class="button button-calm">
-            </ion-item>
-        </ion-list>
+
+                <button ng-click="deleteItem($index)" class="button icon ion-close-round button-assertive"></button>
+<!--            </ion-checkbox>-->
+
+                        </ion-item>
+            <ion-list>
+                <ion-item class=text-center>
+                    <input ng-click="clearCompleted()" type="submit" value="Clear completed" class="button button-calm">
+                </ion-item>
+            </ion-list>
     </ion-content>
 </ion-view>
