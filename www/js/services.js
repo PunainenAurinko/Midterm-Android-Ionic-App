@@ -16,9 +16,9 @@ angular.module('starter.services', [])
 
 })
 
-// LIST ONE SERVICE
+// LIST SERVICE
 
-.service('ListOneService', function (LocalStorageService, $stateParams) {
+.service('ListService', function (LocalStorageService, $stateParams) {
     
     this.params = $stateParams.id;
 
@@ -76,7 +76,7 @@ angular.module('starter.services', [])
                     'done': false
                     }
             ];
-
+            
         }
 
         LocalStorageService.setStorage($stateParams.id, this.list);
@@ -132,54 +132,6 @@ angular.module('starter.services', [])
 
     }
 
-})
-
-// DEFAULT LIST TWO SERVICE
-
-.service('ListTwoService', function () {
-
-    this.list = [
-        {
-            'title': 'Forget some stuff',
-            'done': false
-                    },
-        {
-            'title': 'Undo some stuff',
-            'done': false
-                    },
-        {
-            'title': 'Forget some more',
-            'done': false
-                    }
-            ];
-
-    this.getList = function () {
-        return this.list;
-    };
-})
-
-// DEFAULT LIST THREE SERVICE
-
-.service('ListThreeService', function () {
-
-    this.list = [
-        {
-            'title': 'Repeat some stuff',
-            'done': false
-                    },
-        {
-            'title': 'Recode some stuff',
-            'done': false
-                    },
-        {
-            'title': 'Repeat some more',
-            'done': false
-                    }
-            ];
-
-    this.getList = function () {
-        return this.list;
-    };
 })
 
 // VIBRATON SERVICE

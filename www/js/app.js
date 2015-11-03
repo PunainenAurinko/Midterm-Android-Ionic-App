@@ -46,7 +46,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         views: {
             'menuContent': {
                 templateUrl: 'templates/list-one.html',
-                controller: 'ListOneCtrl as list',
+                controller: 'ListCtrl'
             }
         }
     })
@@ -56,7 +56,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             views: {
                 'menuContent': {
                     templateUrl: 'templates/list-two.html',
-                    controller: 'ListOneCtrl as list'
+                    controller: 'ListCtrl'
                 }
             }
         })
@@ -65,7 +65,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             views: {
                 'menuContent': {
                     templateUrl: 'templates/list-three.html',
-                    controller: 'ListOneCtrl as list'
+                    controller: 'ListCtrl'
+                }
+            }
+        })
+        .state('app.settings', {
+            url: '/settings',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/settings.html',
+                    controller: 'SettingsCtrl'
                 }
             }
         });
