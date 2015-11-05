@@ -1,5 +1,7 @@
 angular.module('starter.services', [])
 
+// LOCAL STORAGE SERVICE
+
 .factory('LocalStorageService', function ($localStorage) {
 
     return {
@@ -18,117 +20,115 @@ angular.module('starter.services', [])
 
 // LIST SERVICE
 
-.service('ListService', function (LocalStorageService, $stateParams) {
-    
-    this.params = $stateParams.id;
+.service('ListService', function (LocalStorageService) {
 
-    console.log(this.params);
+    // Assign default items for the three lists in the lists object
 
-    if (LocalStorageService.getStorage($stateParams.id) == this.list || LocalStorageService.getStorage($stateParams.id) == 0) {
-        
-        console.log('From fresh: ' + this.params);
+    this.lists = {
+        one: [
+            {
+                'title': 'Learn some stuff',
+                'done': false
+                },
+            {
+                'title': 'Code some stuff',
+                'done': false
+                },
+            {
+                'title': 'Code some more',
+                'done': false
+                }
+                ],
+        two: [
+            {
+                'title': 'Forget some stuff',
+                'done': false
+                },
+            {
+                'title': 'Undo some stuff',
+                'done': false
+                },
+            {
+                'title': 'Forget some more',
+                'done': false
+                }
+                ],
+        three: [
+            {
+                'title': 'Repeat some stuff',
+                'done': false
+                },
+            {
+                'title': 'Recode some stuff',
+                'done': false
+                },
+            {
+                'title': 'Repeat some more',
+                'done': false
+                }
+            ]
+    };
 
-        if (this.params == ':list-one') {
+    this.getList = function (key) {
 
-            this.list = [
-                {
-                    'title': 'Learn some stuff',
-                    'done': false
-            },
-                {
-                    'title': 'Code some stuff',
-                    'done': false
-            },
-                {
-                    'title': 'Code some more',
-                    'done': false
-            }
-                ];
-        } else if (this.params == ':list-two') {
+        this.key = key; // assign the 'key' to 'this.key' so that it could be used throughout the service as a key in local storage key/value pair
 
-            this.list = [
-                {
-                    'title': 'Forget some stuff',
-                    'done': false
-                    },
-                {
-                    'title': 'Undo some stuff',
-                    'done': false
-                    },
-                {
-                    'title': 'Forget some more',
-                    'done': false
-                    }
-            ];
-        } else if (this.params == ':list-three') {
+        //        console.log('key: ' + this.key);
 
-            this.list = [
-                {
-                    'title': 'Repeat some stuff',
-                    'done': false
-                    },
-                {
-                    'title': 'Recode some stuff',
-                    'done': false
-                    },
-                {
-                    'title': 'Repeat some more',
-                    'done': false
-                    }
-            ];
-            
-        }
+        //        if (LocalStorageService.getStorage(this.key) != 0) { // check if local storage for the selected list is NOT empty. If local storage for the list is an empty array, the default list will be shown in the view
 
-        LocalStorageService.setStorage($stateParams.id, this.list);
+        this.lists[this.key] = (LocalStorageService.getStorage(this.key, this.lists[this.key]) || this.lists[this.key]); // assign the list to the list from storage, or, if it is null (when we opened the app for the first time), to the default list
 
-    } else {
+        //        }
 
-        console.log('From storage: ' + this.params);
-        
-        this.list = LocalStorageService.getStorage($stateParams.id, this.list);
+        LocalStorageService.setStorage(this.key, this.lists[this.key]);
 
-    }
+        return this.lists[this.key];
 
-    this.getList = function () {
-        
-        return this.list;
-        
     };
 
     this.addToList = function (item) {
 
-        this.list.push({
+//        console.log('item:' + item);
+//
+//        console.log(this.lists);
+//
+//        console.log('key: ' + this.key);
+
+        this.lists[this.key].push({
             'title': item,
             'done': false
         });
 
-        LocalStorageService.setStorage($stateParams.id, this.list);
+        LocalStorageService.setStorage(this.key, this.lists[this.key]);
 
-        return this.list;
+        return this.lists[this.key];
 
     };
 
     this.removeFromList = function () {
 
-        this.list = this.list.filter(function (listItem) {
+        //        console.log('key: ' + this.key);
+
+        this.lists[this.key] = this.lists[this.key].filter(function (listItem) {
 
             return !listItem.done;
 
         })
 
-        LocalStorageService.setStorage($stateParams.id, this.list);
+        LocalStorageService.setStorage(this.key, this.lists[this.key]);
 
-        return this.list;
+        return this.lists[this.key];
 
     }
 
     this.deleteFromList = function (index) {
 
-        this.list.splice(index, 1);
+        this.lists[this.key].splice(index, 1);
 
-        LocalStorageService.setStorage($stateParams.id, this.list);
+        LocalStorageService.setStorage(this.key, this.lists[this.key]);
 
-        return this.list;
+        return this.lists[this.key];
 
     }
 
@@ -140,11 +140,11 @@ angular.module('starter.services', [])
 
     return {
 
-        vibrate: function () {
+        vibrate: function (duration) {
 
-            document.addEventListener('deviceready', function () {
+            document.addEventListener('deviceready', function () { // deviceready event listener added so that this only runs on the device, not in browser, otherwise the browser console.log gives an error - 'Cannot read property 'vibrate' of undefined'
 
-                $cordovaVibration.vibrate(200);
+                $cordovaVibration.vibrate(duration);
 
             }, false);
 
@@ -154,36 +154,27 @@ angular.module('starter.services', [])
 
 })
 
-// SERVICE TO TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
+// NOTIFICATION SERVICE - TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
 
 .factory('NotificationService', function (LocalStorageService, $cordovaLocalNotification) {
 
     return {
 
-        notifyOnceDone: function () {
+        notify: function (message) {
 
-            if (LocalStorageService.getStorage('listOne') == 0) {
+            document.addEventListener('deviceready', function () { // deviceready event listener added so that this only runs on the device, not in browser, otherwise the browser console.log gives an error - 'Cannot read property 'plugins' of undefined'
 
-                document.addEventListener('deviceready', function () {
+                $cordovaLocalNotification.schedule({
 
-                    $cordovaLocalNotification.schedule({
+                    title: message.title,
+                    text: message.text
 
-                        id: 1,
-                        title: 'Congratulations!',
-                        text: "You have completed all of your items!",
-                        data: {
+                }).then(function (result) {
 
-                            customProperty: 'custom value'
+                    console.log('Notification triggered');
 
-                        },
-                        at: new Date().getTime()
-                    }).then(function (result) {
-
-                        console.log('Notification triggered');
-
-                    });
-                })
-            }
+                });
+            })
         }
     }
 });

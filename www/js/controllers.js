@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function ($scope, $window, $state, $location, $ionicModal, $timeout) {
+.controller('AppCtrl', function ($scope, $window, $state, $stateParams, $location, $ionicModal, $timeout) {
 
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
@@ -8,11 +8,6 @@ angular.module('starter.controllers', [])
     // listen for the $ionicView.enter event:
     //$scope.$on('$ionicView.enter', function(e) {
     //});
-
-    $scope.reloadState = function () {
-
-        $window.location.reload();
-    }
 
 })
 
@@ -22,22 +17,19 @@ angular.module('starter.controllers', [])
 //
 // *****************************************
 
-.controller('ListCtrl', function ($scope, $state, $location, ListService, VibrationService, NotificationService) {
+.controller('ListCtrl', function ($scope, list, ListService, VibrationService, NotificationService) {
 
     // CLEAR LOCAL STORAGE
 
-    //    localStorage.clear(); // used for testing
+    //        localStorage.clear(); // used for testing
 
-    // RELOAD THE MODEL
+    // GET LIST ITEMS
 
-    $state.reload();
+    //    console.log('list: ' + list);
 
-    console.log($state.params.id);
-    console.log($location.$$path);
+    $scope.items = ListService.getList(list);
 
-    // GET DEFAULT LIST ITEMS
-
-    $scope.items = ListService.getList();
+    //    console.log('list: ' + list);
 
     // ADD NEW ITEM TO THE LIST
 
@@ -52,20 +44,27 @@ angular.module('starter.controllers', [])
 
     $scope.clearCompleted = function () {
 
-        $scope.items = ListService.removeFromList();
+        $scope.items = ListService.removeFromList(list);
 
         // VIBRATE THE DEVICE WHEN CLEARING A COMPLETED ITEM
 
         if (document.querySelector('span[class="ng-binding done"]')) { // prevent vibration if pressing a button when there is nothing to complete
 
-            VibrationService.vibrate();
+            VibrationService.vibrate(300);
 
         }
 
         // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
 
-        NotificationService.notifyOnceDone();
+        if ($scope.items == '') {
 
+            NotificationService.notify({
+
+                title: 'Congratulations!',
+                text: 'You have completed all of your items!'
+
+            })
+        }
     }
 
     // DELETE AN ITEM FROM THE LIST
@@ -76,11 +75,19 @@ angular.module('starter.controllers', [])
 
         // VIBRATE THE DEVICE WHEN DELETING AN ITEM
 
-        VibrationService.vibrate();
+        VibrationService.vibrate(200);
 
         // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
 
-        NotificationService.notifyOnceDone();
+        if ($scope.items == '') {
+
+            NotificationService.notify({
+
+                title: 'Congratulations!',
+                text: 'You have completed all of your items!'
+
+            })
+        }
 
     }
 

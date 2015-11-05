@@ -40,4 +40,5 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <plugin name="cordova-plugin-vibration" spec="~1.2.0" />
+    <plugin name="cordova-plugin-console" spec="~1.0.1" />
 </widget>

@@ -42,30 +42,48 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
 
     .state('app.listOne', {
-        url: '/list-one:id',
+        url: '/list-one',
         views: {
             'menuContent': {
                 templateUrl: 'templates/list-one.html',
-                controller: 'ListCtrl'
+                controller: 'ListCtrl',
+                controllerAs: 'list',
+                resolve: {
+                    list: function () {
+                        return 'one';
+                    }
+                }
             }
         }
     })
 
     .state('app.listTwo', {
-            url: '/list-two:id',
+            url: '/list-two',
             views: {
                 'menuContent': {
                     templateUrl: 'templates/list-two.html',
-                    controller: 'ListCtrl'
+                    controller: 'ListCtrl',
+                    controllerAs: 'list',
+                    resolve: {
+                        list: function () {
+                        return 'two';
+                    }
+                    }
                 }
             }
         })
         .state('app.listThree', {
-            url: '/list-three:id',
+            url: '/list-three',
             views: {
                 'menuContent': {
                     templateUrl: 'templates/list-three.html',
-                    controller: 'ListCtrl'
+                    controller: 'ListCtrl',
+                    controllerAs: 'list',
+                    resolve: {
+                        list: function () {
+                        return 'three';
+                    }
+                    }
                 }
             }
         })
