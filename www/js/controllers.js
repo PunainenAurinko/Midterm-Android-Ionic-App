@@ -21,19 +21,21 @@ angular.module('starter.controllers', [])
 
     // CLEAR LOCAL STORAGE
 
-    //    localStorage.clear(); // used for testing
+//    localStorage.clear(); // used for testing
 
     // GET LIST ITEMS
 
-    //    console.log('list: ' + list);
+    console.log('Initial state list: ' + list);
 
     $scope.items = ListService.getList(list);
 
-    //    console.log('list: ' + list);
+    console.log('Get list state list: ' + list);
 
     // ADD NEW ITEM TO THE LIST
 
     $scope.addItem = function () {
+
+        //        console.log('Add item function list: ' + list);
 
         $scope.items = ListService.addToList(this.item);
 
@@ -44,7 +46,9 @@ angular.module('starter.controllers', [])
 
     $scope.clearCompleted = function () {
 
-        $scope.items = ListService.removeFromList(list);
+        //        console.log('Clear completed function list: ' + list);
+
+        $scope.items = ListService.removeFromList();
 
         // VIBRATE THE DEVICE WHEN CLEARING A COMPLETED ITEM
 
@@ -56,7 +60,7 @@ angular.module('starter.controllers', [])
 
         // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
 
-        if ($scope.items == '') {
+        if ($scope.items == '' && document.querySelector('span[class="ng-binding done"]')) {
 
             NotificationService.notify({
 
@@ -70,6 +74,8 @@ angular.module('starter.controllers', [])
     // DELETE AN ITEM FROM THE LIST
 
     $scope.deleteItem = function (index) {
+
+        //        console.log('Delete item function list: ' + list);
 
         $scope.items = ListService.deleteFromList(index);
 
