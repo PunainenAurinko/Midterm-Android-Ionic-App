@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function ($scope, $window, $state, $stateParams, $location, $ionicModal, $timeout) {
+.controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
 
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
@@ -21,7 +21,7 @@ angular.module('starter.controllers', [])
 
     // CLEAR LOCAL STORAGE
 
-    //        localStorage.clear(); // used for testing
+    //    localStorage.clear(); // used for testing
 
     // GET LIST ITEMS
 
@@ -93,8 +93,26 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('SettingsCtrl', function ($scope) {
+.controller('SettingsCtrl', function ($scope, LocalStorageService) {
 
-    //    $scope.checked = false;
+    $scope.vibrate = {};
+
+    $scope.vibrate.on = LocalStorageService.getStorage('vibrate') === true;
+
+    $scope.toggleVibration = function () {
+
+        LocalStorageService.setStorage('vibrate', $scope.vibrate.on);
+
+    }
+
+    $scope.notify = {};
+
+    $scope.notify.on = LocalStorageService.getStorage('notify') === true;
+
+    $scope.toggleNotification = function () {
+
+        LocalStorageService.setStorage('notify', $scope.notify.on);
+
+    }
 
 });

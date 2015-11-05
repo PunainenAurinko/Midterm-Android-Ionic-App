@@ -89,11 +89,11 @@ angular.module('starter.services', [])
 
     this.addToList = function (item) {
 
-//        console.log('item:' + item);
-//
-//        console.log(this.lists);
-//
-//        console.log('key: ' + this.key);
+        //        console.log('item:' + item);
+        //
+        //        console.log(this.lists);
+        //
+        //        console.log('key: ' + this.key);
 
         this.lists[this.key].push({
             'title': item,
@@ -110,9 +110,9 @@ angular.module('starter.services', [])
 
         //        console.log('key: ' + this.key);
 
-        this.lists[this.key] = this.lists[this.key].filter(function (listItem) {
+        this.lists[this.key] = this.lists[this.key].filter(function (item) {
 
-            return !listItem.done;
+            return !item.done;
 
         })
 
@@ -136,17 +136,21 @@ angular.module('starter.services', [])
 
 // VIBRATON SERVICE
 
-.factory('VibrationService', function ($cordovaVibration) {
+.factory('VibrationService', function ($cordovaVibration, LocalStorageService) {
 
     return {
 
         vibrate: function (duration) {
 
-            document.addEventListener('deviceready', function () { // deviceready event listener added so that this only runs on the device, not in browser, otherwise the browser console.log gives an error - 'Cannot read property 'vibrate' of undefined'
+            if (LocalStorageService.getStorage('vibrate', 'true')) {
 
-                $cordovaVibration.vibrate(duration);
+                document.addEventListener('deviceready', function () { // deviceready event listener added so that this only runs on the device, not in browser, otherwise the browser console.log gives an error - 'Cannot read property 'vibrate' of undefined'
 
-            }, false);
+                    $cordovaVibration.vibrate(duration);
+
+                }, false);
+
+            }
 
         }
 
@@ -156,11 +160,13 @@ angular.module('starter.services', [])
 
 // NOTIFICATION SERVICE - TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
 
-.factory('NotificationService', function (LocalStorageService, $cordovaLocalNotification) {
+.factory('NotificationService', function ($cordovaLocalNotification, LocalStorageService) {
 
     return {
 
         notify: function (message) {
+            
+            if (LocalStorageService.getStorage('notify', 'true')) {
 
             document.addEventListener('deviceready', function () { // deviceready event listener added so that this only runs on the device, not in browser, otherwise the browser console.log gives an error - 'Cannot read property 'plugins' of undefined'
 
@@ -176,5 +182,32 @@ angular.module('starter.services', [])
                 });
             })
         }
+        }
     }
 });
+
+//SETTINGS SERVICE
+
+//.factory('SettingsService', function (LocalStorageService, $cordovaVibration, NotificationService) {
+//
+//    return {
+//
+//        enableVibration: function (duration) {
+//
+//            document.addEventListener('deviceready', function () { // deviceready event listener added so that this only runs on the device, not in browser, otherwise the browser console.log gives an error - 'Cannot read property 'vibrate' of undefined'
+//
+//                $cordovaVibration.vibrate(duration);
+//
+//            }, false);
+//
+//        },
+//
+//        enableNotification: function () {
+//
+//
+//
+//        }
+//
+//    }
+//
+//});
