@@ -75,11 +75,11 @@ angular.module('starter.services', [])
 
         //        console.log('key: ' + this.key);
 
-        //        if (LocalStorageService.getStorage(this.key) != 0) { // check if local storage for the selected list is NOT empty. If local storage for the list is an empty array, the default list will be shown in the view
+        if (LocalStorageService.getStorage(this.key) != 0) { // check if local storage for the selected list is NOT empty. If local storage for the list is an empty array, the default list will be shown in the view
 
-        this.lists[this.key] = (LocalStorageService.getStorage(this.key, this.lists[this.key]) || this.lists[this.key]); // assign the list to the list from storage, or, if it is null (when we opened the app for the first time), to the default list
+            this.lists[this.key] = (LocalStorageService.getStorage(this.key, this.lists[this.key]) || this.lists[this.key]); // assign the list to the list from storage, or, if it is null (when we opened the app for the first time), to the default list
 
-        //        }
+        }
 
         LocalStorageService.setStorage(this.key, this.lists[this.key]);
 
@@ -165,23 +165,23 @@ angular.module('starter.services', [])
     return {
 
         notify: function (message) {
-            
+
             if (LocalStorageService.getStorage('notify', 'true')) {
 
-            document.addEventListener('deviceready', function () { // deviceready event listener added so that this only runs on the device, not in browser, otherwise the browser console.log gives an error - 'Cannot read property 'plugins' of undefined'
+                document.addEventListener('deviceready', function () { // deviceready event listener added so that this only runs on the device, not in browser, otherwise the browser console.log gives an error - 'Cannot read property 'plugins' of undefined'
 
-                $cordovaLocalNotification.schedule({
+                    $cordovaLocalNotification.schedule({
 
-                    title: message.title,
-                    text: message.text
+                        title: message.title,
+                        text: message.text
 
-                }).then(function (result) {
+                    }).then(function (result) {
 
-                    console.log('Notification triggered');
+                        console.log('Notification triggered');
 
-                });
-            })
-        }
+                    });
+                })
+            }
         }
     }
 });
