@@ -2,7 +2,7 @@
     <ion-content>
         <ion-list>
             <form ng-submit="addItem()" class="row item-button-right">
-                <input class="col-50" ng-model="this.item" type="text" placeholder="Add an item here..." required>
+                <input class="col-50" ng-model="data.item" type="text" placeholder="Add an item here..." required>
                 <input type="submit" value="Add item" class="button button-balanced">
             </form>
             <!--            <ion-checkbox ng-repeat="item in items track by $id($index)" class="item item-button-right balanced item-text-wrap" ng-model="item.done"><span ng-class="{'done':item.done}">{{ item.title }}</span>-->

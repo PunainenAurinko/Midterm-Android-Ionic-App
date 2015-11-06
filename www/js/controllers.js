@@ -25,11 +25,13 @@ angular.module('starter.controllers', [])
 
     // GET LIST ITEMS
 
-    console.log('Initial state list: ' + list);
+//    console.log('Initial state list: ' + list);
 
     $scope.items = ListService.getList(list);
+    
+    $scope.data = { item: '' };
 
-    console.log('Get list state list: ' + list);
+//    console.log('Get list state list: ' + list);
 
     // ADD NEW ITEM TO THE LIST
 
@@ -37,9 +39,9 @@ angular.module('starter.controllers', [])
 
         //        console.log('Add item function list: ' + list);
 
-        $scope.items = ListService.addToList(this.item);
+        $scope.items = ListService.addToList(list, $scope.data.item);
 
-        this.item = '';
+        $scope.data.item = '';
     }
 
     // CLEAR COMPLETED ITEMS
@@ -48,7 +50,7 @@ angular.module('starter.controllers', [])
 
         //        console.log('Clear completed function list: ' + list);
 
-        $scope.items = ListService.removeFromList();
+        $scope.items = ListService.removeFromList(list);
 
         // VIBRATE THE DEVICE WHEN CLEARING A COMPLETED ITEM
 
@@ -77,7 +79,7 @@ angular.module('starter.controllers', [])
 
         //        console.log('Delete item function list: ' + list);
 
-        $scope.items = ListService.deleteFromList(index);
+        $scope.items = ListService.deleteFromList(list, index);
 
         // VIBRATE THE DEVICE WHEN DELETING AN ITEM
 

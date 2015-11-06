@@ -71,25 +71,25 @@ angular.module('starter.services', [])
 
     this.getList = function (key) {
 
-        this.key = key; // assign the 'key' to 'this.key' so that it could be used throughout the service as a key in local storage key/value pair
+//        this.key = key; // assign the 'key' to 'this.key' so that it could be used throughout the service as a key in local storage key/value pair
 
         //        console.log('key: ' + this.key);
 
         //        if (LocalStorageService.getStorage(this.key) != 0) { // check if local storage for the selected list is NOT empty. If local storage for the list is an empty array, the default list will be shown in the view
 
-        if (!LocalStorageService.getStorage(this.key)) {
+        if (!LocalStorageService.getStorage(key)) {
 
-            LocalStorageService.setStorage(this.key, this.lists[this.key]);
+            LocalStorageService.setStorage(key, this.lists[key]);
 
-            return this.lists[this.key];
+            return this.lists[key];
 
         } else {
 
-            this.lists[this.key] = (LocalStorageService.getStorage(this.key, this.lists[this.key]) || this.lists[this.key]); // assign the list to the list from storage, or, if it is null (when we opened the app for the first time), to the default list
+            this.lists[key] = (LocalStorageService.getStorage(key, this.lists[key]) || this.lists[key]); // assign the list to the list from storage, or, if it is null (when we opened the app for the first time), to the default list
 
-            LocalStorageService.setStorage(this.key, this.lists[this.key]);
+            LocalStorageService.setStorage(key, this.lists[key]);
 
-            return this.lists[this.key];
+            return this.lists[key];
 
         }
 
@@ -99,48 +99,48 @@ angular.module('starter.services', [])
 
     };
 
-    this.addToList = function (item) {
+    this.addToList = function (key, item) {
 
         //        console.log('item:' + item);
         //
         //        console.log(this.lists);
         //
-        console.log('key: ' + this.key);
+//        console.log('key: ' + key);
 
-        this.lists[this.key].push({
+        this.lists[key].push({
             'title': item,
             'done': false
         });
 
-        LocalStorageService.setStorage(this.key, this.lists[this.key]);
+        LocalStorageService.setStorage(key, this.lists[key]);
 
-        return this.lists[this.key];
+        return this.lists[key];
 
     };
 
-    this.removeFromList = function () {
+    this.removeFromList = function (key) {
 
-        console.log('key: ' + this.key);
+//        console.log('key: ' + key);
 
-        this.lists[this.key] = this.lists[this.key].filter(function (item) {
+        this.lists[key] = this.lists[key].filter(function (item) {
 
             return !item.done;
 
         })
 
-        LocalStorageService.setStorage(this.key, this.lists[this.key]);
+        LocalStorageService.setStorage(key, this.lists[key]);
 
-        return this.lists[this.key];
+        return this.lists[key];
 
     }
 
-    this.deleteFromList = function (index) {
+    this.deleteFromList = function (key, index) {
 
-        this.lists[this.key].splice(index, 1);
+        this.lists[key].splice(index, 1);
 
-        LocalStorageService.setStorage(this.key, this.lists[this.key]);
+        LocalStorageService.setStorage(key, this.lists[key]);
 
-        return this.lists[this.key];
+        return this.lists[key];
 
     }
 
