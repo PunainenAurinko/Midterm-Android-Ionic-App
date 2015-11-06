@@ -77,8 +77,8 @@ angular.module('starter.services', [])
 
         //        if (LocalStorageService.getStorage(this.key) != 0) { // check if local storage for the selected list is NOT empty. If local storage for the list is an empty array, the default list will be shown in the view
 
-        if (LocalStorageService.getStorage(this.key) == 0) {
-            
+        if (!LocalStorageService.getStorage(this.key)) {
+
             LocalStorageService.setStorage(this.key, this.lists[this.key]);
 
             return this.lists[this.key];
@@ -87,13 +87,15 @@ angular.module('starter.services', [])
 
             this.lists[this.key] = (LocalStorageService.getStorage(this.key, this.lists[this.key]) || this.lists[this.key]); // assign the list to the list from storage, or, if it is null (when we opened the app for the first time), to the default list
 
+            LocalStorageService.setStorage(this.key, this.lists[this.key]);
+
+            return this.lists[this.key];
+
         }
 
         //        }
 
-        LocalStorageService.setStorage(this.key, this.lists[this.key]);
 
-        return this.lists[this.key];
 
     };
 
