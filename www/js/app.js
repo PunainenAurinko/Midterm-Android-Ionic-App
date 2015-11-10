@@ -47,7 +47,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             'menuContent': {
                 templateUrl: 'templates/list-one.html',
                 controller: 'ListCtrl',
-                controllerAs: 'list',
                 resolve: {
                     list: function () {
                         return 'one';
@@ -63,7 +62,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 'menuContent': {
                     templateUrl: 'templates/list-two.html',
                     controller: 'ListCtrl',
-                    controllerAs: 'list',
                     resolve: {
                         list: function () {
                         return 'two';
@@ -78,7 +76,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 'menuContent': {
                     templateUrl: 'templates/list-three.html',
                     controller: 'ListCtrl',
-                    controllerAs: 'list',
                     resolve: {
                         list: function () {
                         return 'three';

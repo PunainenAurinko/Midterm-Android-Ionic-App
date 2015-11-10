@@ -71,10 +71,6 @@ angular.module('starter.services', [])
 
     this.getList = function (key) {
 
-//        this.key = key; // assign the 'key' to 'this.key' so that it could be used throughout the service as a key in local storage key/value pair
-
-        //        console.log('key: ' + this.key);
-
         //        if (LocalStorageService.getStorage(this.key) != 0) { // check if local storage for the selected list is NOT empty. If local storage for the list is an empty array, the default list will be shown in the view
 
         if (!LocalStorageService.getStorage(key)) {
@@ -101,12 +97,6 @@ angular.module('starter.services', [])
 
     this.addToList = function (key, item) {
 
-        //        console.log('item:' + item);
-        //
-        //        console.log(this.lists);
-        //
-//        console.log('key: ' + key);
-
         this.lists[key].push({
             'title': item,
             'done': false
@@ -119,8 +109,6 @@ angular.module('starter.services', [])
     };
 
     this.removeFromList = function (key) {
-
-//        console.log('key: ' + key);
 
         this.lists[key] = this.lists[key].filter(function (item) {
 

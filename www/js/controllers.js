@@ -25,19 +25,13 @@ angular.module('starter.controllers', [])
 
     // GET LIST ITEMS
 
-//    console.log('Initial state list: ' + list);
-
     $scope.items = ListService.getList(list);
     
     $scope.data = { item: '' };
 
-//    console.log('Get list state list: ' + list);
-
     // ADD NEW ITEM TO THE LIST
 
     $scope.addItem = function () {
-
-        //        console.log('Add item function list: ' + list);
 
         $scope.items = ListService.addToList(list, $scope.data.item);
 
@@ -47,8 +41,6 @@ angular.module('starter.controllers', [])
     // CLEAR COMPLETED ITEMS
 
     $scope.clearCompleted = function () {
-
-        //        console.log('Clear completed function list: ' + list);
 
         $scope.items = ListService.removeFromList(list);
 
@@ -76,8 +68,6 @@ angular.module('starter.controllers', [])
     // DELETE AN ITEM FROM THE LIST
 
     $scope.deleteItem = function (index) {
-
-        //        console.log('Delete item function list: ' + list);
 
         $scope.items = ListService.deleteFromList(list, index);
 
