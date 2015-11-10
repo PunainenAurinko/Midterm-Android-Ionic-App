@@ -71,9 +71,7 @@ angular.module('starter.services', [])
 
     this.getList = function (key) {
 
-        //        if (LocalStorageService.getStorage(this.key) != 0) { // check if local storage for the selected list is NOT empty. If local storage for the list is an empty array, the default list will be shown in the view
-
-        if (!LocalStorageService.getStorage(key)) {
+        if (!LocalStorageService.getStorage(key)) { // display the default list when the local storage for the list is empty (when you close and reopen the app)
 
             LocalStorageService.setStorage(key, this.lists[key]);
 
@@ -88,10 +86,6 @@ angular.module('starter.services', [])
             return this.lists[key];
 
         }
-
-        //        }
-
-
 
     };
 
@@ -134,11 +128,13 @@ angular.module('starter.services', [])
 
 })
 
-// VIBRATON SERVICE
+// DEVICE SERVICE
 
-.factory('VibrationService', function ($cordovaVibration, LocalStorageService) {
+.factory('DeviceService', function (LocalStorageService, $cordovaVibration, $cordovaLocalNotification) {
 
     return {
+
+        // VIBRATE THE DEVICE
 
         vibrate: function (duration) {
 
@@ -152,17 +148,9 @@ angular.module('starter.services', [])
 
             }
 
-        }
+        },
 
-    }
-
-})
-
-// NOTIFICATION SERVICE - TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
-
-.factory('NotificationService', function ($cordovaLocalNotification, LocalStorageService) {
-
-    return {
+        // TRIGGER LOCAL NOTIFICATION
 
         notify: function (message) {
 
@@ -183,31 +171,7 @@ angular.module('starter.services', [])
                 })
             }
         }
+
     }
+
 });
-
-//SETTINGS SERVICE
-
-//.factory('SettingsService', function (LocalStorageService, $cordovaVibration, NotificationService) {
-//
-//    return {
-//
-//        enableVibration: function (duration) {
-//
-//            document.addEventListener('deviceready', function () { // deviceready event listener added so that this only runs on the device, not in browser, otherwise the browser console.log gives an error - 'Cannot read property 'vibrate' of undefined'
-//
-//                $cordovaVibration.vibrate(duration);
-//
-//            }, false);
-//
-//        },
-//
-//        enableNotification: function () {
-//
-//
-//
-//        }
-//
-//    }
-//
-//});

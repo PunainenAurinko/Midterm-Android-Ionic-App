@@ -11,13 +11,15 @@ angular.module('starter.controllers', [])
 
 })
 
-// *****************************************
+// **********************************************
 //
-//          LIST CONTROLLER
+//              LIST CONTROLLER
 //
-// *****************************************
+//  Just one controller is used for all the lists
+//
+// **********************************************
 
-.controller('ListCtrl', function ($scope, list, ListService, VibrationService, NotificationService) {
+.controller('ListCtrl', function ($scope, list, ListService, DeviceService) {
 
     // CLEAR LOCAL STORAGE
 
@@ -25,7 +27,7 @@ angular.module('starter.controllers', [])
 
     // GET LIST ITEMS
 
-    $scope.items = ListService.getList(list);
+    $scope.items = ListService.getList(list); // list id is used to identify what list we are in
     
     $scope.data = { item: '' };
 
@@ -48,7 +50,7 @@ angular.module('starter.controllers', [])
 
         if (document.querySelector('span[class="ng-binding done"]')) { // prevent vibration if pressing a button when there is nothing to complete
 
-            VibrationService.vibrate(300);
+            DeviceService.vibrate(300);
 
         }
 
@@ -56,10 +58,10 @@ angular.module('starter.controllers', [])
 
         if ($scope.items == '' && document.querySelector('span[class="ng-binding done"]')) {
 
-            NotificationService.notify({
+            DeviceService.notify({
 
                 title: 'Congratulations!',
-                text: 'You have completed all of your items!'
+                text: 'You have completed all items in list ' + list + '!' // text specifies which list the notificaiton is for
 
             })
         }
@@ -73,16 +75,16 @@ angular.module('starter.controllers', [])
 
         // VIBRATE THE DEVICE WHEN DELETING AN ITEM
 
-        VibrationService.vibrate(200);
+        DeviceService.vibrate(200);
 
         // TRIGGER LOCAL NOTIFICATION WHEN ALL ITEMS ARE COMPLETED
 
         if ($scope.items == '') {
 
-            NotificationService.notify({
+            DeviceService.notify({
 
                 title: 'Congratulations!',
-                text: 'You have completed all of your items!'
+                text: 'You have completed all items in list ' + list + '!' // text specifies which list the notificaiton is for
 
             })
         }
