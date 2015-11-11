@@ -93,6 +93,12 @@ angular.module('starter.controllers', [])
 
 })
 
+// **********************************************
+//
+//              SETTINGS CONTROLLER
+//
+// **********************************************
+
 .controller('SettingsCtrl', function ($scope, LocalStorageService) {
 
     $scope.vibrate = {};

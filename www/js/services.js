@@ -71,7 +71,7 @@ angular.module('starter.services', [])
 
     this.getList = function (key) {
 
-        if (!LocalStorageService.getStorage(key)) { // display the default list when the local storage for the list is empty (when you close and reopen the app)
+        if (!LocalStorageService.getStorage(key)) { // display the default list for the app initial state
 
             LocalStorageService.setStorage(key, this.lists[key]);
 
