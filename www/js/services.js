@@ -71,7 +71,7 @@ angular.module('starter.services', [])
 
     this.getList = function (key) {
 
-        if (!LocalStorageService.getStorage(key)) { // display the default list for the app initial state
+        if (!LocalStorageService.getStorage(key) || LocalStorageService.getStorage(key) == 0) { // display the default list for the app initial state or, if all the completed items in the list have been cleared, display the default list on the next start of the app
 
             LocalStorageService.setStorage(key, this.lists[key]);
 
@@ -79,7 +79,7 @@ angular.module('starter.services', [])
 
         } else {
 
-            this.lists[key] = (LocalStorageService.getStorage(key, this.lists[key]) || this.lists[key]); // assign the list to the list from storage, or, if it is null (when we opened the app for the first time), to the default list
+            this.lists[key] = (LocalStorageService.getStorage(key, this.lists[key])); // assign the list to the list from storage, or, if it is null (when we opened the app for the first time), to the default list
 
             LocalStorageService.setStorage(key, this.lists[key]);
 
@@ -158,7 +158,7 @@ angular.module('starter.services', [])
 
                 document.addEventListener('deviceready', function () { // deviceready event listener added so that this only runs on the device, not in browser, otherwise the browser console.log gives an error - 'Cannot read property 'plugins' of undefined'
 
-                    $cordovaLocalNotification.schedule({
+                    $cordovaLocalNotification.add({
 
                         title: message.title,
                         text: message.text
